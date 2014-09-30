@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Icon=/usr/share/icons/elementary/apps/48/system-file-manager.svg
+Categories=System;FileTools;FileManager;Utility;Core;GTK;
+Exec=pcmanfm
+StartupNotify=true
+Terminal=false
+MimeType=inode/directory;

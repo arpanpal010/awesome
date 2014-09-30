@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Sublime Text
+Comment=sophisticated text editor for code, html and prose
+Type=Application
+Icon=/usr/share/icons/hicolor/128x128/apps/sublime_text.png
+Exec=subl
+Categories=Utility;TextEditor;
+Terminal=false
+MimeType=text/plain;
