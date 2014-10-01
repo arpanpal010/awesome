@@ -24,7 +24,7 @@ theme.wallpaper = themedir .. "/wallpaper"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Liberation Mono 10"
+theme.font      = "Liberation Mono 8"
 
 -- {{{ Colors
 theme.fg_normal = "#ffffffaa"
@@ -49,15 +49,15 @@ theme.menu_bg_normal = theme.bg_normal
 --theme.menu_bg_focus = ""
 theme.menu_fg_normal = "#ffffff"
 theme.menu_fg_focus = "#ffffff"
-theme.menu_border_width= 0
-theme.menu_border_color= "#000000"
+-- theme.menu_border_width= 1 
+-- theme.menu_border_color= "#FFFFFF"
 -- }}}
 -- mix of border_focus and background
 -- theme.light_color = "#FFB17D"
 
 -- {{{ Borders
---theme.border_width  = 1
---theme.border_normal = theme.bg_normal
+-- theme.border_width  = 1
+-- theme.border_normal = "#FFFFFF" --theme.bg_normal
 --theme.border_focus  = "#FFFFFF00"
 --theme.border_marked = "#ff0000"
 -- }}}
