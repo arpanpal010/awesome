@@ -12,8 +12,8 @@ Plugins
 
 [awesome-freedesktop] (https://github.com/terceiro/awesome-freedesktop) for the menu,  
 they are added as submodules, so after cloning, cd to the directory and run  
->`git submodules init`  
->`git submodules update`  
+>`git submodule init`  
+>`git submodule update`  
 
 also,  
 [launchbar widget] (http://awesome.naquadah.org/wiki/Quick_launch_bar_widget/3.5) for the launcher at bottom-left.
