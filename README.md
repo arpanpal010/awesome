@@ -21,5 +21,5 @@ also,
 Screenshots
 --------
 
-[Clean] (https://raw.githubusercontent.com/arpanpal010/awesome/master/screenshot_clean_2014-09-30-111510.jpg) | 
-[Dirty] (https://raw.githubusercontent.com/arpanpal010/awesome/master/screenshot_dirty_2014_09_30_111407.jpg)
+[Clean] (https://raw.githubusercontent.com/arpanpal010/awesome/master/screenshot_clean.jpg) | 
+[Dirty] (https://raw.githubusercontent.com/arpanpal010/awesome/master/screenshot_dirty.jpg)
