@@ -52,7 +52,6 @@ menu_side = awful.menu({ items = {
 	{ "files", filesmenu },
 	{ guieditor, guieditor },
 	{ ide, ide },
-	{ "office", officemenu },
 	{ "music", terminal .. " -e ncmpcpp" },
 	{ "system", sysmenu },
 	{ "awesome", awmenu }
