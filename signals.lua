@@ -21,7 +21,7 @@ client.connect_signal("manage", function (c, startup)
         if not c.size_hints.user_position and not c.size_hints.program_position then
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
-            awful.placement.under_mouse(c)
+            -- awful.placement.under_mouse(c)
         end
     end
 
@@ -43,6 +43,7 @@ client.connect_signal("manage", function (c, startup)
 
         -- Widgets that are aligned to the left
         local left_layout = wibox.layout.fixed.horizontal()
+		awful.titlebar.widget.iconwidget(c):set_resize("allowed") -- resize image by given space
         left_layout:add(awful.titlebar.widget.iconwidget(c))
         left_layout:buttons(buttons)
 
@@ -67,12 +68,13 @@ client.connect_signal("manage", function (c, startup)
         layout:set_right(right_layout)
         layout:set_middle(middle_layout)
 
-        awful.titlebar(c):set_widget(layout)
+        awful.titlebar(c, {size = beautiful.titlebar_height}):set_widget(layout)
+
         -- hide titlebar after creation
         awful.titlebar.hide(c)
     end
 end)
 
---client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
---client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}

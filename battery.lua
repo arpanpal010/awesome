@@ -15,78 +15,78 @@ local data = setmetatable({}, { __mode = "k" })
 local properties = { "width", "height" }
 
 function assault.fit (assault, width, height)
-local width = 2 + data[assault].width + (data[assault].stroke_width * 2) + data[assault].peg_width
-local height = 2 + data[assault].height + (data[assault].stroke_width * 2)
-print('fit out: ' .. width .. ' / ' .. height)
-return width, height
+	local width = 2 + data[assault].width + (data[assault].stroke_width * 2) + data[assault].peg_width
+	local height = 2 + data[assault].height + (data[assault].stroke_width * 2)
+	print('fit out: ' .. width .. ' / ' .. height)
+	return width, height
 end
 
 local round = function (num, idp)
-return tonumber(string.format("%." .. (idp or 0) .. "f", num))
-end
+				return tonumber(string.format("%." .. (idp or 0) .. "f", num))
+			end
 
 local acpi_is_on_ac_power = function (adapter)
-local f = io.open('/sys/class/power_supply/' .. adapter .. '/online'):read()
-return string.find(f, '1')
-end
+								local f = io.open('/sys/class/power_supply/' .. adapter .. '/online'):read()
+								return string.find(f, '1')
+							end
 
 local acpi_battery_is_charging = function (battery)
-local f = io.open('/sys/class/power_supply/' .. battery .. '/status')
-if f == nil then return false end
-return string.find(f:read(), 'Charging')
-end
+									local f = io.open('/sys/class/power_supply/' .. battery .. '/status')
+									if f == nil then return false end
+									return string.find(f:read(), 'Charging')
+								end
 
 local acpi_battery_percent = function (battery)
-local f = io.open('/sys/class/power_supply/' .. battery .. '/charge_now')
-if f == nil then return 0 end
-local now = tonumber(f:read())
-local full = tonumber(io.open('/sys/class/power_supply/' .. battery .. '/charge_full'):read())
-return now / full
-end
+								local f = io.open('/sys/class/power_supply/' .. battery .. '/charge_now')
+								if f == nil then return 0 end
+								local now = tonumber(f:read())
+								local full = tonumber(io.open('/sys/class/power_supply/' .. battery .. '/charge_full'):read())
+								return now / full
+								end
 
 local battery_bolt_generate = function (width, height)
-local surface = cairo.ImageSurface(cairo.Format.A8, width, height)
-local cr = cairo.Context(surface)
+								local surface = cairo.ImageSurface(cairo.Format.A8, width, height)
+								local cr = cairo.Context(surface)
 
-cr:new_path()
+								cr:new_path()
 
-cr:move_to(width * ( 0.0/19), height * ( 3.0/11))
-cr:line_to(width * (11.0/19), height * (11.0/11))
-cr:line_to(width * (11.0/19), height * ( 5.5/11))
-cr:line_to(width * (19.0/19), height * ( 8.0/11))
-cr:line_to(width * ( 8.0/19), height * ( 0.0/11))
-cr:line_to(width * ( 8.0/19), height * ( 5.5/11))
+								cr:move_to(width * ( 0.0/19), height * ( 3.0/11))
+								cr:line_to(width * (11.0/19), height * (11.0/11))
+								cr:line_to(width * (11.0/19), height * ( 5.5/11))
+								cr:line_to(width * (19.0/19), height * ( 8.0/11))
+								cr:line_to(width * ( 8.0/19), height * ( 0.0/11))
+								cr:line_to(width * ( 8.0/19), height * ( 5.5/11))
 
-cr:close_path()
+								cr:close_path()
 
-return cr:copy_path()
-end
+								return cr:copy_path()
+							end
 
 local battery_border_generate = function (args)
-local args = args or {}
-local surface = cairo.ImageSurface(cairo.Format.A8, args.width, args.height)
-local cr = cairo.Context(surface)
+									local args = args or {}
+									local surface = cairo.ImageSurface(cairo.Format.A8, args.width, args.height)
+									local cr = cairo.Context(surface)
 
-local outside_width = args.width + (args.stroke_width * 2)
-local outside_height = args.height + (args.stroke_width * 2)
+									local outside_width = args.width + (args.stroke_width * 2)
+									local outside_height = args.height + (args.stroke_width * 2)
 
-cr:new_path()
+									cr:new_path()
 
-cr:move_to(0 , 0 )
-cr:line_to(outside_width , 0 )
-cr:line_to(outside_width , args.peg_top )
-cr:line_to(outside_width + args.peg_width, args.peg_top )
-cr:line_to(outside_width + args.peg_width, args.peg_top + args.peg_height)
-cr:line_to(outside_width , args.peg_top + args.peg_height)
-cr:line_to(outside_width , outside_height )
-cr:line_to(0 , outside_height )
+									cr:move_to(0 , 0 )
+									cr:line_to(outside_width , 0 )
+									cr:line_to(outside_width , args.peg_top )
+									cr:line_to(outside_width + args.peg_width, args.peg_top )
+									cr:line_to(outside_width + args.peg_width, args.peg_top + args.peg_height)
+									cr:line_to(outside_width , args.peg_top + args.peg_height)
+									cr:line_to(outside_width , outside_height )
+									cr:line_to(0 , outside_height )
 
-cr:rectangle(args.stroke_width, args.stroke_width, args.width, args.height);
+									cr:rectangle(args.stroke_width, args.stroke_width, args.width, args.height);
 
-cr:close_path()
+									cr:close_path()
 
-return cr:copy_path()
-end
+									return cr:copy_path()
+								end
 
 local battery_text_generate = function (text, font)
 local surface = cairo.ImageSurface(cairo.Format.A8, 100, 100)

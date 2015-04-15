@@ -18,10 +18,10 @@ volumecfg.mixercommand = function (command)
   status = string.match(status, "%[(o[^%]]*)%]")
   if string.find(status, "on", 1, true) then
     volume = volume .. "%"
-    color = "#FFFFFF"
+    color = beautiful.volume or "#FFFFFF"
   else   
     volume = volume .. "M"
-    color = "#FF0000"
+    color = beautiful.volume_muted or "#FF0000"
   end
   volumecfg.widget:set_markup("<span color=\"" .. color .. "\">" .. volume .. "</span>")
   -- display the bar"</span>"

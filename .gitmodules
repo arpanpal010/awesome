@@ -7,3 +7,6 @@
 [submodule "lain"]
 	path = lain
 	url = https://github.com/copycat-killer/lain.git
+[submodule "obvious"]
+	path = obvious
+	url = https://github.com/arpanpal010/obvious.git

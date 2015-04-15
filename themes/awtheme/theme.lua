@@ -1,8 +1,13 @@
---{{{ Main
 local awful = require("awful")
 awful.util = require("awful.util")
 
 theme = {}
+
+-- theme name - name of the theme dir
+    themename       = "awtheme"
+-- colorscheme + transparency
+    theme_colors    = "dark" -- dark | light colors
+    theme.transparency= 'CF'
 
 home          = os.getenv("HOME")
 config        = awful.util.getdir("config")
@@ -13,115 +18,185 @@ end
 
 sharedicons   = shared .. "/icons"
 sharedthemes  = shared .. "/themes"
-themes        = config .. "/themes"
-themename     = "/awtheme"
+themes        = config .. "/themes/"
+-- themename     = "awtheme"
 if not awful.util.file_readable(themes .. themename .. "/theme.lua") then
        themes = sharedthemes
 end
 themedir      = themes .. themename
 
-theme.wallpaper = themedir .. "/wallpaper"
--- }}}
+-- wallpaper
+    theme.wallpaper = themedir .. "/wallpaper"
 
--- {{{ Styles
-theme.font      = "Liberation Mono 8"
+-- font
+    theme.font      = "Liberation Mono 8"
 
--- {{{ Colors
-theme.fg_normal = "#ffffffaa"
-theme.fg_focus  = "#ffffff00"
---theme.fg_urgent = "#CC9393"
---theme.fg_minimize = "#000000"
+-- menu
+    theme.menu_height = "20" -- px
+    theme.menu_width  = "160" -- px
 
-theme.bg_normal = "#00000044" -- <-change this to set overall transparency
-theme.bg_focus  = "#ffffff44"
---theme.bg_urgent = "#34353400"
-theme.bg_systray = theme.bg_normal
--- }}}
--- {{{ Titlebars
-theme.titlebar_bg_focus  = "#3C3C3C99"
-theme.titlebar_bg_normal = "#3C3C3C99"
--- }}}
--- {{{ Menu
--- Variables set for theming the menu:
-theme.menu_height = "20"
-theme.menu_width  = "160"
-theme.menu_bg_normal = theme.bg_normal
---theme.menu_bg_focus = ""
-theme.menu_fg_normal = "#ffffff"
-theme.menu_fg_focus = "#ffffff"
--- theme.menu_border_width= 1 
--- theme.menu_border_color= "#FFFFFF"
--- }}}
--- mix of border_focus and background
--- theme.light_color = "#FFB17D"
+-- bar heights5
+    theme.statusbar_height = "15" -- px
+    theme.titlebar_height = "15" -- px
 
--- {{{ Borders
--- theme.border_width  = 1
--- theme.border_normal = "#FFFFFF" --theme.bg_normal
---theme.border_focus  = "#FFFFFF00"
---theme.border_marked = "#ff0000"
--- }}}
+-- borders
+    theme.border_width  = 2
+    theme.menu_border_width= 2
 
--- {{{tasklist
-theme.tasklist_disable_icon         = true
-theme.tasklist_floating             = "[float] "
+-- uselessgap if lain
+if awful.util.file_readable(config .. "/lain/init.lua") then
+    theme.useless_gap_width  = "20"
+end
+
+-- --------------------------------------------------------------
+-- Colorscheme light
+-- --------------------------------------------------------------
+if theme_colors == "light" then
+    theme.fg_normal   = '#757575' -- theme font color
+    theme.bg_normal   = '#EEEEEE' .. theme.transparency -- theme background color
+
+    theme.fg_focus    = '#212121'  -- focused window text
+    theme.bg_focus    = '#FAFAFA' .. theme.transparency -- focused window bg at top bar
+
+    theme.fg_urgent   = '#FFFFFF' .. theme.transparency -- urgent font white
+    theme.bg_urgent   = '#F44336' .. theme.transparency -- urgent bg red
+
+    theme.fg_minimize = theme.fg_normal -- font when minimized
+    theme.bg_minimize = theme.bg_normal -- bg when minimized
+
+    theme.border_focus  = theme.fg_focus --border
+    theme.border_normal = theme.fg_normal
+    theme.border_marked = theme.fg_focus
+
+    theme.bg_systray  = theme.bg_normal  -- systray color same as bg_normal
+
+    theme.titlebar_bg_focus  = theme.bg_focus -- focused window titlebar bg
+    theme.titlebar_bg_normal = theme.bg_normal -- normal window titlebar bg
+
+    theme.menu_fg_normal = '#616161' .. theme.transparency -- default theme font color
+    theme.menu_bg_normal = theme.bg_normal -- default theme bg
+
+    theme.menu_fg_focus = '#212121' .. theme.transparency -- highlighted menu item font color
+    theme.menu_bg_focus = '#E0E0E0' .. theme.transparency -- highlighted menu item bg
+
+    theme.menu_border_color= "#212121" .. theme.transparency -- menu border color
+    theme.light_color = "#000000" .. theme.transparency -- mix of border_focus and background
+
+
+    -- [taglist|tasklist]_[bg|fg]_[focus|urgent]
+    theme.taglist_fg_focus = '#212121' .. theme.transparency -- taglist
+    theme.taglist_bg_focus = '#9E9E9E' .. theme.transparency
+    theme.taglist_fg_urgent = '#FFFFFF' .. theme.transparency
+    theme.taglist_bg_urgent = '#F44336' .. theme.transparency
+
+    -- theme.tasklist_fg_focus = '' -- tasklist
+    -- theme.tasklist_bg_focus = ''
+    -- theme.tasklist_fg_urgent = ''
+    -- theme.tasklist_bg_urgent = ''
+
+    theme.mouse_finder_color = "#CC9393"
+
+    -- other variable that override above settings
+    -- titlebar_[normal|focus]
+    -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
+    -- mouse_finder_[timeout|animate_timeout|radius|factor]
+
+--widgets
+    -- assault battery colors
+    theme.bat_normal = '#424242'
+    theme.bat_critical = '#f44336'
+    theme.bat_charging = '#4caf50'
+
+    -- volume widget colors
+    theme.volume = '#212121'
+    theme.volume_muted = '#f44336'
+
+-- icons
+    iconpath = "/dark_icons/"
+
+-- --------------------------------------------------------------
+-- Colorscheme dark
+-- --------------------------------------------------------------
+elseif theme_colors == "dark" then
+    theme.fg_normal   = '#EEEEEE' -- theme font color
+    theme.bg_normal   = '#424242' .. theme.transparency -- theme background color
+
+    theme.fg_focus    = '#F5F5F5' -- focused window text
+    theme.bg_focus    = '#616161' .. theme.transparency -- focused window bg at top bar
+
+    theme.fg_urgent   = '#FFFFFF' -- urgent font white
+    theme.bg_urgent   = '#F44336' .. theme.transparency -- urgent bg red
+
+    theme.fg_minimize = theme.fg_normal -- font when minimized
+    theme.bg_minimize = theme.bg_normal -- bg when minimized
+
+    theme.border_focus  = '#E0E0E0'-- theme.fg_focus --border
+    theme.border_normal = '#9E9E9E'-- theme.fg_normal
+    theme.border_marked = theme.fg_focus
+
+    theme.bg_systray  = theme.bg_normal  -- systray color same as bg_normal
+
+    theme.titlebar_bg_focus  = theme.bg_focus -- focused window titlebar bg
+    theme.titlebar_bg_normal = theme.bg_normal -- normal window titlebar bg
+
+    theme.menu_fg_normal   = '#EEEEEE' -- default theme font color
+    theme.menu_bg_normal   = theme.bg_normal -- default theme bg
+    theme.menu_fg_focus    = '#212121' -- highlighted menu item font color
+    theme.menu_bg_focus    = '#757575' .. theme.transparency -- highlighted menu item bg
+    theme.menu_border_color= '#9E9E9E' .. theme.transparency -- menu border color
+    theme.light_color      = "#FFFFFF" .. theme.transparency -- mix of border_focus and background
+
+    -- [taglist|tasklist]_[bg|fg]_[focus|urgent]
+    theme.taglist_fg_focus  = '#212121' .. theme.transparency -- taglist
+    theme.taglist_bg_focus  = ' #9E9E9E' .. theme.transparency
+    theme.taglist_fg_urgent = '#FFFFFF' .. theme.transparency
+    theme.taglist_bg_urgent = '#F44336' .. theme.transparency
+
+    -- theme.tasklist_fg_focus = '' -- tasklist
+    -- theme.tasklist_bg_focus = ''
+    -- theme.tasklist_fg_urgent = ''
+    -- theme.tasklist_bg_urgent = ''
+
+    theme.mouse_finder_color = "#CC9393"
+
+    -- other variable that override above settings
+    -- titlebar_[normal|focus]
+    -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
+    -- mouse_finder_[timeout|animate_timeout|radius|factor]
+
+--widgets
+    -- assault battery colors
+    theme.bat_normal = '#F5F5F5'
+    theme.bat_critical = '#f44336'
+    theme.bat_charging = '#4caf50'
+
+    -- volume widget colors
+    theme.volume = '#f5f5f5'
+    theme.volume_muted = '#f44336'
+
+-- icons
+    iconpath = "/light_icons/"
+
+end
+
+-- tasklist text additions
+theme.tasklist_disable_icon         = true -- disables icons in taskbar
+theme.tasklist_floating             = "[float] " -- added to title
 theme.tasklist_maximized_horizontal = ""
-theme.tasklist_maximized_vertical   = ""
--- }}}
+theme.tasklist_maximized_vertical   = "" 
 
--- There are other variable seqts
--- overriding the default one when
--- defined, the sets are:
--- [taglist|tasklist]_[bg|fg]_[focus|urgent]
--- titlebar_[normal|focus]
--- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
--- Example:
---theme.taglist_bg_focus = "#CC9393"
--- }}}
-
--- {{{ Widgets
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.fg_widget        = "#AECF96"
---theme.fg_center_widget = "#88A175"
---theme.fg_end_widget    = "#FF5656"
---theme.bg_widget        = "#494B4F"
---theme.border_widget    = "#3F3F3F"
--- }}}
-
--- {{{ Mouse finder
-theme.mouse_finder_color = "#CC9393"
--- mouse_finder_[timeout|animate_timeout|radius|factor]
--- }}}
-
--- {{{ Icons
--- {{{ Taglist
-theme.taglist_squares_sel   = themedir .. "/icons/square_sel.png" -- "/taglist/squarefz.png"
-theme.taglist_squares_unsel = themedir .. "/icons/square_unsel.png"-- "/taglist/squarez.png"
-theme.taglist_squares_resize = "true"
--- }}}
+-- Taglist 
+-- theme.taglist_squares_sel   = themedir .. "/icons/square_sel.png" -- "/taglist/squarefz.png"
+-- theme.taglist_squares_unsel = themedir .. "/icons/square_unsel.png"-- "/taglist/squarez.png"
+-- theme.taglist_squares_resize = "true"
 
 -- {{{ Misc
-theme.awesome_icon      = themedir .. "/icons/awesome-icon.png"
-theme.power_icon        = themedir .. "/icons/powericon.png"
-theme.volicon			= themedir .. "/icons/volicon.png"
-theme.menu_submenu_icon = themedir .. "/icons/submenu.png"
--- }}}
-
--- {{{ Layout
-theme.layout_tile       = themedir .. "/layouts/tile.png"
-theme.layout_tileleft   = themedir .. "/layouts/tileleft.png"
-theme.layout_tilebottom = themedir .. "/layouts/tilebottom.png"
-theme.layout_tiletop    = themedir .. "/layouts/tiletop.png"
-theme.layout_fairv      = themedir .. "/layouts/fairv.png"
-theme.layout_fairh      = themedir .. "/layouts/fairh.png"
-theme.layout_spiral     = themedir .. "/layouts/spiral.png"
-theme.layout_dwindle    = themedir .. "/layouts/dwindle.png"
-theme.layout_max        = themedir .. "/layouts/max.png"
-theme.layout_fullscreen = themedir .. "/layouts/fullscreen.png"
-theme.layout_magnifier  = themedir .. "/layouts/magnifier.png"
-theme.layout_floating   = themedir .. "/layouts/floating.png"
+theme.awesome_icon      = themedir .. iconpath .. "icon-awesome.png"
+theme.power_icon        = themedir .. iconpath .. "icon-power.png"
+theme.volicon           = themedir .. iconpath .. "icon-volume.png"
+theme.wlicon            = themedir .. iconpath .. "icon-wireless.png"
+theme.batticon          = themedir .. iconpath .. "icon-battery.png"
+theme.menu_submenu_icon = themedir .. iconpath .. "submenu.png"
 -- }}}
 
 -- {{{ Titlebar
@@ -148,22 +223,32 @@ theme.titlebar_maximized_button_normal_active = themedir .. "/titlebar/maximized
 theme.titlebar_maximized_button_focus_inactive  = themedir .. "/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = themedir .. "/titlebar/maximized_normal_inactive.png"
 -- }}}
--- }}}
--- {{{lain icons 
-theme.lain_icons         = config .. "/lain/icons/layout/default/" --os.getenv("HOME") .. "/.config/awesome/lain/icons/layout/default/"
-theme.layout_termfair    = theme.lain_icons .. "termfairw.png"
---theme.layout_centerfair    = theme.lain_icons .. "termfairw.png"
---theme.layout_cascade = theme.lain_icons .. "cascadetilew.png"
-theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png"
-theme.layout_centerwork  = theme.lain_icons .. "centerworkw.png"
---theme.layout_uselessfair = theme.lain_icons .. "cascadew.png"
---theme.layout_uselesspiral = theme.lain_icons .. "cascadew.png"
-theme.layout_uselesstile = theme.lain_icons .. "cascadew.png"
--- }}}
 
---if lain
-if awful.util.file_readable(config .. "/lain/init.lua") then
-    theme.useless_gap_width  = "12"
-end
+-- {{{ Layout
+-- theme.layout_tile       = themedir .. iconpath .. "/layouts/tile.png"
+theme.layout_tileleft   = themedir .. iconpath .. "/layouts/tileleft.png"
+theme.layout_tilebottom = themedir .. iconpath .. "/layouts/tilebottom.png"
+theme.layout_tiletop    = themedir .. iconpath .. "/layouts/tiletop.png"
+theme.layout_fairv      = themedir .. iconpath .. "/layouts/fairv.png"
+theme.layout_fairh      = themedir .. iconpath .. "/layouts/fairh.png"
+theme.layout_spiral     = themedir .. iconpath .. "/layouts/spiral.png"
+theme.layout_dwindle    = themedir .. iconpath .. "/layouts/dwindle.png"
+theme.layout_max        = themedir .. iconpath .. "/layouts/max.png"
+theme.layout_fullscreen = themedir .. iconpath .. "/layouts/fullscreen.png"
+theme.layout_magnifier  = themedir .. iconpath .. "/layouts/magnifier.png"
+theme.layout_floating   = themedir .. iconpath .. "/layouts/floating.png"
+
+-- lain layouts
+-- theme.lain_icons         = config .. "/lain/icons/layout/default/" -- icon name
+theme.layout_uselesstile  = themedir .. iconpath .. "/layouts/tile.png"
+theme.layout_uselessfair  = themedir .. iconpath .. "/layouts/fairv.png"
+theme.layout_uselesspiral = themedir .. iconpath .. "/layouts/spiral.png"
+theme.layout_termfair     = themedir .. iconpath .. "/layouts/lain_termfair.png"
+theme.layout_cascadetile  = themedir .. iconpath .. "/layouts/lain_cascade.png"
+theme.layout_centerwork   = themedir .. iconpath .. "/layouts/lain_centerwork.png"
+theme.layout_centerfair   = themedir .. iconpath .. "/layouts/lain_centerfair.png"
+theme.layout_cascade      = themedir .. iconpath .. "/layouts/lain_cascadebrowse.png"
+
+-- }}}
 
 return theme
