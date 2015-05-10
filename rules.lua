@@ -36,7 +36,14 @@ awful.rules.rules = {
         except = { instance = "Navigator" },
         properties = { floating = true,
             size_hints_honor = true }
-    }
+    },
+	{ rule = { class = "Plugin-container" }, 
+        properties = { focus = yes,
+                       floating = true, 
+                       fullscreen = true, 
+                       border_width = 0,
+                       border_color = beautiful.border_normal } 
+	}
 
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },

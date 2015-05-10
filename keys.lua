@@ -83,6 +83,9 @@ globalkeys = awful.util.table.join(
     --                                                                awful.util.eval, nil,
     --                                                                awful.util.getdir("cache") .. "/history_eval")
     --                                            end),
+    awful.key({ modkey,           }, "x",       function () awful.util.spawn('sync') awful.util.spawn("xautolock -locknow") end),
+    awful.key({ modkey,           }, "z",       function () topwibox[mouse.screen].visible = not topwibox[mouse.screen].visible end),
+
     awful.key({ modkey,           }, "Escape",  awful.tag.history.restore),
     awful.key({ modkey,           }, "Left",    awful.tag.viewprev ),
     awful.key({ modkey,           }, "Right",   awful.tag.viewnext ),

@@ -88,9 +88,9 @@ for s = 1, screen.count() do
     		right_top_layout:add(batterywidget)
     		right_top_layout:add(separator)
     	end
-    	if wlwidget then
-        	right_top_layout:add(wlicon)
-        	right_top_layout:add(wlwidget)
+    	if net_wireless and net_wired then
+        	right_top_layout:add(net_wireless)
+        	right_top_layout:add(net_wired)
         	right_top_layout:add(separator)
 	    end
     	if volumewidget then

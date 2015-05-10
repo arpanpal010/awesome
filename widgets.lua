@@ -9,7 +9,6 @@
     separator:set_markup(markup.small(" &#183; "))
 
 -- textclock
-    -- textclock = awful.widget.textclock(" %a,%b %d %H:%M ", 5, {align="right"})
     require("obvious.clock")
     obvious.clock.set_shortformat(" %H:%M ")
     obvious.clock.set_shorttimer(5)
@@ -18,20 +17,7 @@
     obvious.clock.set_editor(terminal .. " -e vim")
     textclock = obvious.clock()
 
--- assault battery widget
-    -- local battcheck = "ls -A /sys/class/power_supply"
-    -- local f = io.popen(battcheck)
-    -- if f:lines() then
-    --  local assault=require("battery")
-    --  batterywidget = assault({
-    --      battery = "BAT0",
-    --      adapter = "ADP0",
-    --      critical_level = 0.20,
-    --      font = beautiful.font,
-    --      normal_color = beautiful.bat_normal,
-    --      critical_color = beautiful.bat_critical,
-    --      charging_color = beautiful.bat_charging
-
+-- battery widget
 	batteryicon = wibox.widget.imagebox()
 	batteryicon:set_image(beautiful.batticon)
 	batteryicon:set_resize("allowed")
@@ -48,16 +34,28 @@
     volumewidget = require("volume")
 
 --wifi icon
-    wlicon = wibox.widget.imagebox()
-    wlicon:set_image(beautiful.wlicon)
-    wlicon:buttons(awful.util.table.join(
-        awful.button({}, 1, function() awful.util.spawn(wlcmd) end)
-    ))
-    require("obvious.wlan")
-    wlwidget = obvious.wlan(wldev).widget
-    wlwidget:buttons(awful.util.table.join(
-        awful.button({}, 2, function() awful.util.spawn(wlcmd) end)
-    ))
+--    wlicon = wibox.widget.imagebox()
+--    wlicon:set_image(beautiful.wlicon)
+--    wlicon:buttons(awful.util.table.join(
+--        awful.button({}, 1, function() awful.util.spawn(wlcmd) end)
+--    ))
+--    require("obvious.wlan")
+--    wlwidget = obvious.wlan(wldev).widget
+--    wlwidget:buttons(awful.util.table.join(
+--        awful.button({}, 2, function() awful.util.spawn(wlcmd) end)
+--    ))
+--
+    local net_widgets=require("net_widgets")
+    net_wireless=net_widgets.wireless({
+        interface=wldev,
+        popup_signal=true,
+        -- onclick=awful.util.spawn("wicd-gtk")
+        onclick=terminal .. " -e wicd-curses"
+    });
+
+    net_wired = net_widgets.indicator({
+        interfaces={"enp6s0"},
+    })
 
 -- launchbar
     -- local launchbar = require("launchbar")

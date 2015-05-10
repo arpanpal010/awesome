@@ -56,9 +56,6 @@ do
     end)
 end
 
--- JAVA GUI Fix
-awful.util.spawn_with_shell("wmname LG3D") -- try Sawfish if problem occurs
-
 -- ---------------------------------------------
 -- Variable definitions
 -- ---------------------------------------------
@@ -105,6 +102,12 @@ if beautiful.wallpaper then
         gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     end
 end
+
+-- JAVA GUI Fix
+awful.util.spawn_with_shell("wmname LG3D") -- try Sawfish if problem occurs
+-- awful.util.spawn_with_shell(configdir .. "/scripts/locker.sh") -- lockscreen with xautolock and i3lock
+awful.util.spawn_with_shell("exec xautolock -detectsleep -time 5 -locker \"i3lock -d -e -t -i " .. beautiful.wallpaper .. "\" -notify 10 -notifier \"notify-send -u critical -t 5000 -- 'Locking screen in 5 seconds'\"") -- lockscreen with xautolock and i3lock
+-- wallpaper must be PNG to be displayed as lockscreen
 
 -- load all configs 
 dofile( configdir .. "/tags.lua" )
